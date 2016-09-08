@@ -7,10 +7,15 @@
 </head>
 <body ng-controller="snakeController">
     <p> отладка   {{ snake.parts[0].x }}</p>
-    <p> отладка   {{ serviceTest }}</p>
+    <p> отладка   {{ snake.wallConnect}}</p>
     <input ng-keypress="arrowDown($event)" type="text" placeholder="Клавиши нажимать тут" id="kinput">
 <div class="ground">
+    <div class="points">Счёт: {{ points }}</div>
     <div class="playGround">
+        <div class="food" style="background: {{ snake.foodParams[0].color }};
+                margin-left:{{ snake.foodParams[0].x }}px; margin-top: {{ snake.foodParams[0]
+                .y }}px">
+        </div>
         <div ng-repeat="part in snake.parts" class="snakePart"
              style="margin-left:{{ part.x }}px; margin-top: {{ part
             .y }}px">{{ part.id }}</div>
@@ -18,6 +23,7 @@
     <div class="startPause">
         <button type="button"  data-ng-click="play()">Старт</button>
         <button type="button"  data-ng-click="stop()">Пауза</button>
+        <button type="button"  data-ng-click="reset()">Сброс</button>
     </div>
 
 
