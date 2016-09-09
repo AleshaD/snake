@@ -6,27 +6,27 @@
     <link rel="stylesheet" href="css/gameStyles.css" />
 </head>
 <body ng-controller="snakeController">
-    <p> отладка   {{ snake.parts[0].x }}</p>
-    <p> отладка   {{ snake.wallConnect}}</p>
-    <input ng-keypress="arrowDown($event)" type="text" placeholder="Клавиши нажимать тут" id="kinput">
 <div class="ground">
+    <h1 style="text-align: center">Змейка</h1>
     <div class="points">Счёт: {{ points }}</div>
-    <div class="playGround">
+    <div ng-keypress="arrowDown($event)" id="playGround" tabindex="1">
         <div class="food" style="background: {{ snake.foodParams[0].color }};
                 margin-left:{{ snake.foodParams[0].x }}px; margin-top: {{ snake.foodParams[0]
                 .y }}px">
         </div>
-        <div ng-repeat="part in snake.parts" class="snakePart"
-             style="margin-left:{{ part.x }}px; margin-top: {{ part
-            .y }}px">{{ part.id }}</div>
+            <div ng-repeat="part in snake.parts" class="snakePart"
+                 style="margin-left:{{ part.x }}px; margin-top: {{ part
+                .y }}px">
+            </div>
         </div>
     <div class="startPause">
         <button type="button"  data-ng-click="play()">Старт</button>
         <button type="button"  data-ng-click="stop()">Пауза</button>
-        <button type="button"  data-ng-click="reset()">Сброс</button>
+        <button type="button"  data-ng-click="reset()">Сброс</button><br><br>
+        <label><b>Скорость:</b>
+        <input type="number" id="inputDif" ng-model="dificult" min="1" max="20" required>
+        </label>
     </div>
-
-
 </div>
 
 <script src="js/lib/angular.min.js"></script>

@@ -52,13 +52,25 @@ snakeApp.factory ('snakeService', function (){
             direct: 100,
             whereGoing: function (keyPress) {
                 switch (keyPress) {
-                    case 119: this.direct = 119; //вниз
+                    case 1094:
+                    case 40:
+                    case 119: if (this.direct == 115) break;
+                        this.direct = 119; //вниз
                         break;
-                    case 100: this.direct = 100; // право
+                    case 1074:
+                    case 39:
+                    case 100: if (this.direct == 97) break;
+                        this.direct = 100; // право
                         break;
-                    case 97: this.direct = 97; // лево
+                    case 1092:
+                    case 37:
+                    case 97:  if (this.direct == 100) break;
+                        this.direct = 97; // лево
                         break;
-                    case 115: this.direct = 115; //вверх
+                    case 1099:
+                    case 38:
+                    case 115:  if (this.direct == 119) break;
+                        this.direct = 115; //вверх
                         break;
                     default : break;
                 }
@@ -69,15 +81,15 @@ snakeApp.factory ('snakeService', function (){
                 var X, Y;
 
                 while (true) {
-                    X = this.randomValue(0,216);
+                    X = this.randomValue(0,180);
                     if (X % 9 == 0) {
                         while (true) {
-                            Y = this.randomValue(0,216);
+                            Y = this.randomValue(0,180);
                             if (Y % 9 == 0) {
                                 break;
                             }
                         }
-                        if (!this.checkConnection(X,Y)) break;
+                        if (!this.checkConnection(X,Y,0)) break;
                     }
                 }
 
@@ -92,16 +104,16 @@ snakeApp.factory ('snakeService', function (){
             },
 
             eatenFood: function () {
-                return this.checkConnection (this.foodParams[0].x, this.foodParams[0].y);
+                return this.checkConnection (this.foodParams[0].x, this.foodParams[0].y, 0);
             },
 
             growing: function () {
                 this.parts.push({id: this.parts.length, x: this.foodParams[0].x, y: this.foodParams[0].y});
             },
 
-            checkConnection: function (x, y) {
-                for (var i=0; i<this.parts.length; i++) {
-                    if ((x == this.parts[i].x) && (y == this.parts[i].y)) {
+            checkConnection: function (x, y, i) {
+                for (var j=i; j<this.parts.length; j++) {
+                    if ((x == this.parts[j].x) && (y == this.parts[j].y)) {
                         return true;
                     }
                 }
@@ -110,9 +122,12 @@ snakeApp.factory ('snakeService', function (){
 
             wallConnect: function () {
                 return (this.parts[0].x < 0 ||
-                        this.parts[0].x > 216 ||
+                        this.parts[0].x > 180 ||
                         this.parts[0].y < 0 ||
-                        this.parts[0].y > 216)
+                        this.parts[0].y > 180)
+            },
+            tailConnect: function () {
+                return this.checkConnection(this.parts[0].x, this.parts[0].y, 1);
             },
 
             randomValue: function (min, max) {
