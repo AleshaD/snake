@@ -8,6 +8,7 @@
 <body ng-controller="snakeController">
 <div class="ground">
     <h1 style="text-align: center">Змейка</h1>
+    <p style="text-align: center; font-size: 12px">(Управление - WASD)</p>
     <div class="points">Счёт: {{ points }}</div>
     <div ng-keypress="arrowDown($event)" id="playGround" tabindex="1">
         <div class="food" style="background: {{ snake.foodParams[0].color }};
